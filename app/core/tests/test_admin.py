@@ -8,6 +8,7 @@ from django.urls import reverse
 
 class AdminSiteTests(TestCase):
     """Tests for django admin"""
+
     def setUp(self):
         """Create user and client"""
         self.client = Client()
@@ -43,5 +44,3 @@ class AdminSiteTests(TestCase):
         res = self.client.get(url)
 
         self.assertEqual(res.status_code, 200)
-
-

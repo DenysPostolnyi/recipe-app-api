@@ -1,7 +1,11 @@
 """
 Database models
 """
-from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import (
+    PermissionsMixin,
+    AbstractBaseUser,
+    BaseUserManager
+)
 from django.db import models
 
 

@@ -9,4 +9,13 @@
 - docker-compose run --rm app sh -c "python manage.py makemigrations"
 - docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py migrate"
 - docker-compose run --rm app sh -c "python manage.py <> && flake8"
-- 
+
+### Endpoints
+##### USER 
+- user/create 
+  - POST - create new user
+- user/token
+  - POST - create new token
+- user/me
+  - PUT/PATCH - update user
+  - GET - get user

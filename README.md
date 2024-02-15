@@ -13,10 +13,18 @@
 
 ### Endpoints
 ##### USER 
-- user/create 
+- /user/create/ 
   - POST - create new user
-- user/token
+- /user/token/
   - POST - create new token
-- user/me
+- /user/me/
   - PUT/PATCH - update user
   - GET - get user
+##### RECIPE 
+- /recipes/
+  - GET - list all
+  - POST - create new
+- /recipes/<id>/
+  - GET - get recipe by id
+  - PUT/PATCH - update recipe
+  - DELETE - delete recipe

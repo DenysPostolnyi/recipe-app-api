@@ -2,7 +2,7 @@
 Tests for recipe api
 """
 from decimal import Decimal
-from unittest import TestCase
+from django.test import TestCase
 
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -10,6 +10,8 @@ from rest_framework import status
 
 from core.models import Recipe
 from rest_framework.test import APIClient
+
+from recipe.serializers import RecipeSerializer
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
@@ -70,11 +72,13 @@ class PrivateRecipeApiTests(TestCase):
             'other@example.com',
             'password123',
         )
-        recipe1 = create_recipe(user=other_user)
-        recipe2 = create_recipe(user=self.user)
+        create_recipe(user=other_user)
+        create_recipe(user=self.user)
 
         res = self.client.get(RECIPES_URL)
 
-        self.assertEqual(len(res.data), 1)
-        self.assertNotIn(recipe1, res.data)
-        self.assertIn(recipe2, res.data)
+        recipes = Recipe.objects.filter(user=self.user)
+        serializer = RecipeSerializer(recipes, many=True)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, serializer.data)

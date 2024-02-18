@@ -8,6 +8,8 @@ ENV PYTHONUNBUFFERED 1
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./app /app
+#for deployment
+COPY ./scripts /scripts
 
 # Set the working directory to the application folder
 WORKDIR /app
@@ -23,7 +25,7 @@ RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev && \
+        build-base postgresql-dev musl-dev zlib zlib-dev linux-headers && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
@@ -37,14 +39,19 @@ RUN python -m venv /py && \
     mkdir -p /vol/web/media && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
-    chmod -R 755 /vol
-
+    chmod -R 755 /vol/web && \
+    chmod -R +x /scripts
 
 
 
 
 # Set the PATH to include the virtual environment
-ENV PATH="/py/bin:$PATH"
+#ENV PATH="/py/bin:$PATH"
+# Set PATH for deployment
+ENV PATH="/scripts:/py/bin:$PATH"
 
 # Switch to the non-root user
 USER django-user
+
+#for deployment
+CMD ["run.sh"]

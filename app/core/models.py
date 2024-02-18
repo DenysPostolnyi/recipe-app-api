@@ -11,6 +11,11 @@ from django.db import models
 from app import settings
 
 
+def recipe_image_file_path(instance, filename):
+    """Generate file path for new recipe image"""
+    pass
+
+
 class UserManager(BaseUserManager):
     """Manager for users"""
 

@@ -8,6 +8,7 @@ An API for applications that include recipes is designed to allow users to creat
 - docker-compose run --rm app sh -c "python manage.py startapp <>"
 - docker-compose up
 - docker-compose run --rm app sh -c "python manage.py test"
+- docker-compose run --rm app sh -c "python manage.py createsuperuser"
 - docker-compose run --rm app sh -c "python manage.py makemigrations"
 - docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py migrate"
 - docker-compose run --rm app sh -c "python manage.py <> && flake8"
